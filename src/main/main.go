@@ -5,6 +5,7 @@ import (
     "os/exec"
 )
 
+//Todo 信号处理程序
 func main() {
     //Todo 使用通道优化
     cmd := exec.Command("adb", "logcat")
