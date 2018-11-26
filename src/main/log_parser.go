@@ -5,7 +5,6 @@ import (
     "regexp"
     "strings"
 )
-//Todo 折行
 
 // 解析对应Log行的Tag
 func parseLine(line string) string {
@@ -16,29 +15,29 @@ func parseLine(line string) string {
     return strings.Trim(tag, " ")
 }
 
-func printColorfulLine(line string) {
-    
+func PrintColorfulLine(line string) {
+
     tag := parseLine(line)
     switch tag {
     case "V":
-        linux_print_verbose(line)
+        Linux_print_verbose(line)
     case "D":
-        linux_print_debug(line)
+        Linux_print_debug(line)
     case "I":
-        linux_print_info(line)
+        Linux_print_info(line)
     case "W":
-        linux_print_warn(line)
+        Linux_print_warn(line)
     case "E":
-        linux_print_err(line)
+        Linux_print_err(line)
     default:
         fmt.Println(line)
     }
 }
 
-func testPrintColorfulLine() {
-    printColorfulLine(" E fuck")
-    printColorfulLine(" W fuck")
-    printColorfulLine(" I fuck")
-    printColorfulLine(" D fuck")
-    printColorfulLine(" V fuck")
+func TestPrintColorfulLine() {
+    PrintColorfulLine(" E fuck")
+    PrintColorfulLine(" W fuck")
+    PrintColorfulLine(" I fuck")
+    PrintColorfulLine(" D fuck")
+    PrintColorfulLine(" V fuck")
 }

@@ -4,54 +4,59 @@ import "fmt"
 
 const (
     // linux终端显示转义控制字符esc
-    linux_escape = 0x1B
+    LINUX_ESCAPE = 0X1B
 
     // 文字显示模式
-    linux_display_type_normal  = 0
-    linux_display_type_hilight = 1
+    LINUX_DISPLAY_TYPE_NORMAL  = 0
+    LINUX_DISPLAY_TYPE_HILIGHT = 1
 
     // 文字前景
-    linux_foreground_red       = 31
-    linux_foreground_green     = 32
-    linux_foreground_yellow    = 33
-    linux_foreground_blue      = 34
-    linux_foreground_bluegreen = 36
-    linux_foreground_white     = 37
+    LINUX_FOREGROUND_RED       = 31
+    LINUX_FOREGROUND_GREEN     = 32
+    LINUX_FOREGROUND_YELLOW    = 33
+    LINUX_FOREGROUND_BLUE      = 34
+    LINUX_FOREGROUND_BLUEGREEN = 36
+    LINUX_FOREGROUND_WHITE     = 37
 
     // 级别
-    linux_foreground_level_err     = linux_foreground_red
-    linux_foreground_level_warn    = linux_foreground_yellow
-    linux_foreground_level_info    = linux_foreground_green
-    linux_foreground_level_debug   = linux_foreground_blue
-    linux_foreground_level_verbose = linux_foreground_white
+    LINUX_FOREGROUND_LEVEL_ERR     = LINUX_FOREGROUND_RED
+    LINUX_FOREGROUND_LEVEL_WARN    = LINUX_FOREGROUND_YELLOW
+    LINUX_FOREGROUND_LEVEL_INFO    = LINUX_FOREGROUND_GREEN
+    LINUX_FOREGROUND_LEVEL_DEBUG   = LINUX_FOREGROUND_BLUE
+    LINUX_FOREGROUND_LEVEL_VERBOSE = LINUX_FOREGROUND_WHITE
 )
+
+//Todo 结构化，接口化
+type linux_printer struct {
+    display_type int
+}
+
+func Linux_print_err(s string) {
+    linux_print(LINUX_FOREGROUND_LEVEL_ERR, LINUX_DISPLAY_TYPE_HILIGHT, s)
+}
+
+func Linux_print_warn(s string) {
+    linux_print(LINUX_FOREGROUND_LEVEL_WARN, LINUX_DISPLAY_TYPE_HILIGHT, s)
+}
+
+func Linux_print_info(s string) {
+    linux_print(LINUX_FOREGROUND_LEVEL_INFO, LINUX_DISPLAY_TYPE_HILIGHT, s)
+}
+
+func Linux_print_debug(s string) {
+    linux_print(LINUX_FOREGROUND_LEVEL_DEBUG, LINUX_DISPLAY_TYPE_HILIGHT, s)
+}
+
+func Linux_print_verbose(s string) {
+    linux_print(LINUX_FOREGROUND_LEVEL_VERBOSE, LINUX_DISPLAY_TYPE_HILIGHT, s)
+}
 
 func linux_print(foreground int, display int, s string) {
     const gap = " "
-    fmt.Printf("%s%c[%d;%dm%s%c[0m \n", gap, linux_escape, display, foreground, s, linux_escape)
+    fmt.Printf("%s%c[%d;%dm%s%c[0m \n", gap, LINUX_ESCAPE, display, foreground, s, LINUX_ESCAPE)
 }
 
-func linux_print_err(s string) {
-    linux_print(linux_foreground_level_err, linux_display_type_hilight, s)
-}
-
-func linux_print_warn(s string) {
-    linux_print(linux_foreground_level_warn, linux_display_type_normal, s)
-}
-
-func linux_print_info(s string) {
-    linux_print(linux_foreground_level_info, linux_display_type_normal, s)
-}
-
-func linux_print_debug(s string) {
-    linux_print(linux_foreground_level_debug, linux_display_type_normal, s)
-}
-
-func linux_print_verbose(s string) {
-    linux_print(linux_foreground_level_verbose, linux_display_type_normal, s)
-}
-
-func test_color_printer_linux() {
+func Test_color_printer_linux() {
     // 前景 背景 颜色
     // ---------------------------------------
     // 30  40  黑色
