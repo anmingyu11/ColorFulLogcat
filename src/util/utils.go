@@ -1,13 +1,13 @@
-package main
+package util
 
 import "runtime"
 
-func panicErr(err error) {
+func PanicErr(err error) {
     if err != nil {
         panic(err)
     }
 }
 
-func getOS() string {
+func GetOS() string {
     return runtime.GOOS
 }
